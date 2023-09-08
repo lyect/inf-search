@@ -74,17 +74,16 @@ class PascalTriangle:
 
 def main() -> None:
 	print("Enter N:")
-	N = int(input())
+	N: int = int(input())
 
-	pretty_output_answer: str = ""
 	print("Do you want to make pretty output? [yes/no]")
-	pretty_output_answer = input()
+	pretty_output_answer: str = input()
 	while (pretty_output_answer != "yes" and pretty_output_answer != "no"):
 		print("Unknown answer \"{}\". Please, enter \"yes\" or \"no\"".format(pretty_output_answer))
 		pretty_output_answer = input()
 	pretty_output_switch: bool = True if pretty_output_answer == "yes" else False
 
-	pt = PascalTriangle()
+	pt: PascalTriangle = PascalTriangle()
 	pt.build(N)
 	pt.show(pretty_output_switch)
 
