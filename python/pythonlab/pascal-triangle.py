@@ -87,6 +87,4 @@ def main() -> None:
 	pt.build(N)
 	pt.show(pretty_output_switch)
 
-	return 0
-
 main()

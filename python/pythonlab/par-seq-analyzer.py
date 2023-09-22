@@ -59,6 +59,5 @@ def main() -> None:
 			print("Correct sequence!")
 		else:
 			print("Incorrect sequence!")
-	return 0
 
 main()
