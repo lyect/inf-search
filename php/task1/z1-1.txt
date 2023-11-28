@@ -1,0 +1,278 @@
+\! echo '#================================================================#';
+\! echo '#                            TASK 01                             #';
+\! echo '#================================================================#';
+
+SELECT * FROM cust WHERE snum = 1001;
+
+\! echo '#================================================================#';
+\! echo '#                            TASK 02                             #';
+\! echo '#================================================================#';
+
+SELECT city, sname, snum, comm FROM sal;
+
+\! echo '#================================================================#';
+\! echo '#                            TASK 03                             #';
+\! echo '#================================================================#';
+
+SELECT rating, cname FROM cust WHERE city = "San Jose";
+
+\! echo '#================================================================#';
+\! echo '#                            TASK 04                             #';
+\! echo '#================================================================#';
+
+SELECT DISTINCT snum FROM ord;
+
+\! echo '#================================================================#';
+\! echo '#                            TASK 05                             #';
+\! echo '#================================================================#';
+
+SELECT sname, city FROM sal WHERE city = "London" AND comm > 0.11;
+
+\! echo '#================================================================#';
+\! echo '#                            TASK 06                             #';
+\! echo '#================================================================#';
+
+SELECT * FROM cust WHERE rating <= 200 AND city != "Rome";
+
+\! echo '#================================================================#';
+\! echo '#                           TASK 07.1                            #';
+\! echo '#================================================================#';
+
+SELECT *
+FROM ord
+WHERE
+	odate = STR_TO_DATE("03-10-90", "%d-%m-%Y") OR
+	odate = STR_TO_DATE("05-10-90", "%d-%m-%Y");
+
+\! echo '#================================================================#';
+\! echo '#                           TASK 07.2                            #';
+\! echo '#================================================================#';
+
+SELECT *
+FROM ord
+WHERE
+	odate != STR_TO_DATE("04-10-90", "%d-%m-%Y") AND
+	odate BETWEEN
+		STR_TO_DATE("03-10-90", "%d-%m-%Y") AND
+		STR_TO_DATE("05-10-90", "%d-%m-%Y");
+
+\! echo '#================================================================#';
+\! echo '#                            TASK 08                             #';
+\! echo '#================================================================#';
+
+SELECT *
+FROM cust
+WHERE
+	cname RLIKE '^[a-gA-G].*';
+
+\! echo '#================================================================#';
+\! echo '#                            TASK 09                             #';
+\! echo '#================================================================#';
+
+SELECT *
+FROM sal
+WHERE
+	cname RLIKE '.*[e|E].*';
+
+\! echo '#================================================================#';
+\! echo '#                            TASK 10                             #';
+\! echo '#================================================================#';
+
+SELECT SUM(amt)
+FROM ord
+WHERE odate = STR_TO_DATE("03-10-90", "%d-%m-%Y");
+
+\! echo '#================================================================#';
+\! echo '#                            TASK 11                             #';
+\! echo '#================================================================#';
+
+SELECT SUM(amt)
+FROM ord
+WHERE snum = 1001;
+
+\! echo '#================================================================#';
+\! echo '#                            TASK 12                             #';
+\! echo '#================================================================#';
+
+SELECT snum, onum
+FROM ord
+INNER JOIN (
+	SELECT MAX(amt) as M
+	FROM ord
+	GROUP BY snum
+) max_ord
+WHERE amt = M;
+
+\! echo '#================================================================#';
+\! echo '#                            TASK 13                             #';
+\! echo '#================================================================#';
+
+SELECT cname
+FROM cust
+WHERE cname LIKE '%s'
+ORDER BY cname
+LIMIT 1;
+
+\! echo '#================================================================#';
+\! echo '#                            TASK 14                             #';
+\! echo '#================================================================#';
+
+SELECT city, ROUND(AVG(comm), 3) AS avcomm
+FROM sal
+GROUP BY city;
+
+\! echo '#================================================================#';
+\! echo '#                            TASK 15                             #';
+\! echo '#================================================================#';
+
+SELECT onum, ROUND(0.8 * amt, 3) AS euramt, sname, comm
+FROM ord
+JOIN sal ON ord.snum = sal.snum;
+
+\! echo '#================================================================#';
+\! echo '#                            TASK 16                             #';
+\! echo '#================================================================#';
+
+SELECT onum, sname, cname
+FROM ord
+JOIN sal  ON ord.snum =  sal.snum
+JOIN cust ON ord.cnum = cust.cnum
+WHERE sal.city = 'London' OR sal.city = 'Rome'
+ORDER BY onum;
+
+\! echo '#================================================================#';
+\! echo '#                            TASK 17                             #';
+\! echo '#================================================================#';
+
+SELECT sname, amtsum5oct, ROUND(amtsum5oct * comm, 4) AS commsum5oct
+FROM sal
+JOIN (
+	SELECT snum, ROUND(SUM(amt), 2) as amtsum5oct
+	FROM ord
+	WHERE odate < STR_TO_DATE("05-10-90", "%d-%m-%Y")
+	GROUP BY snum
+) ords ON sal.snum = ords.snum
+ORDER BY sname;
+
+\! echo '#================================================================#';
+\! echo '#                            TASK 18                             #';
+\! echo '#================================================================#';
+
+SELECT onum, amt, sname, cname
+FROM ord
+JOIN (
+	SELECT snum, sname
+	FROM sal
+	WHERE city RLIKE '^[l-rL-R].*'
+) lrcitysal ON ord.snum = lrcitysal.snum
+JOIN (
+	SELECT cnum, cname
+	FROM cust
+	WHERE city RLIKE '^[l-rL-R].*'
+) lrcitycnum ON ord.cnum = lrcitycnum.cnum;
+
+\! echo '#================================================================#';
+\! echo '#                            TASK 19                             #';
+\! echo '#================================================================#';
+
+WITH csord AS (
+	SELECT cust.cnum, cust.cname
+	FROM ord
+	JOIN sal ON ord.snum = sal.snum
+	JOIN cust ON ord.cnum = cust.cnum
+	WHERE sal.sname = "Peel"
+)
+
+SELECT c1, c2
+FROM (
+	SELECT csord1.cname AS c1, csord2.cname AS c2
+	FROM csord AS csord1 CROSS JOIN csord AS csord2
+	WHERE csord1.cnum < csord2.cnum
+) dp
+GROUP BY c1, c2;
+
+\! echo '#================================================================#';
+\! echo '#                            TASK 20                             #';
+\! echo '#================================================================#';
+
+SELECT cname
+FROM cust
+WHERE snum IN (
+	SELECT snum
+	FROM sal
+	WHERE comm < 0.13
+);
+
+\! echo '#================================================================#';
+\! echo '#                            TASK 21                             #';
+\! echo '#================================================================#';
+
+DROP TABLE IF EXISTS sal_copy;
+
+CREATE TABLE sal_copy LIKE sal;
+INSERT INTO sal_copy SELECT * FROM sal;
+
+\! echo '	SAL Table:';
+\! echo ;
+SELECT * FROM sal;
+DESC sal;
+
+\! echo '	SAL_COPY Table:';
+\! echo ;
+SELECT * FROM sal_copy;
+DESC sal_copy;
+
+\! echo '#================================================================#';
+\! echo '#                            TASK 22                             #';
+\! echo '#================================================================#';
+
+SELECT * FROM sal_copy;
+
+INSERT INTO sal_copy
+    (snum, sname, city, comm)
+VALUES
+    (1005, "Smirnov", "Tambov", 0.15),
+    (1006,   "Popov", "Moscow", 0.09);
+
+SELECT * FROM sal_copy;
+
+DELETE FROM sal_copy WHERE snum = 1005;
+
+SELECT * FROM sal_copy;
+
+\! echo '#================================================================#';
+\! echo '#                            TASK 23                             #';
+\! echo '#================================================================#';
+
+DROP TABLE IF EXISTS sal_copy;
+
+CREATE TABLE sal_copy LIKE sal;
+INSERT INTO sal_copy SELECT * FROM sal;
+INSERT INTO sal_copy
+    (snum, sname, city, comm)
+VALUES
+    (1005, "Smirnov", "Tambov", 0.15),
+    (1006,   "Popov", "Moscow", 0.09);
+
+SELECT * FROM sal_copy;
+
+UPDATE sal_copy SET comm=comm*2 WHERE snum = 1001;
+SELECT * FROM sal_copy;
+
+UPDATE sal_copy SET comm=comm*2 WHERE snum = 1002;
+SELECT * FROM sal_copy;
+
+UPDATE sal_copy SET comm=comm*2 WHERE snum = 1003;
+SELECT * FROM sal_copy;
+
+UPDATE sal_copy SET comm=comm*2 WHERE snum = 1004;
+SELECT * FROM sal_copy;
+
+UPDATE sal_copy SET comm=comm*2 WHERE snum = 1005;
+SELECT * FROM sal_copy;
+
+UPDATE sal_copy SET comm=comm*2 WHERE snum = 1006;
+SELECT * FROM sal_copy;
+
+UPDATE sal_copy SET comm=comm*2 WHERE snum = 1007;
+SELECT * FROM sal_copy;

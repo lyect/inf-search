@@ -1,0 +1,64 @@
+<html>
+	<head>
+		<title> 4.1 </title>
+		<meta charset="utf-8">
+		<style>
+			.header {
+				text-align: center;
+				vertical-align: center;
+				font-weight: bold;
+			}
+			.tableName {
+				text-align: left;
+				vertical-align: center;
+				font-weight: bold;
+			}
+			.tablePropertyCheckbox {
+				text-align: center;
+				vertical-align: center;
+			}
+		</style>
+	</head>
+	<body>
+		<form action='z10-2.php' method='GET'>
+			<table>
+				<tr>
+					<td rowspan="2" class="header">Таблицы</td>
+					<td colspan="2" class="header">Отобразить</td>
+				</tr>
+				<tr>
+					<td class="header">структуру</td>
+					<td class="header">содержимое</td>
+				</tr>
+				<tr>
+					<td class="tableName">Продавцы (sal)</td>
+					<td class="tablePropertyCheckbox">
+						<input type="checkbox" name="sal_structure" value="1"/>
+					</td>
+					<td class="tablePropertyCheckbox">
+						<input type="checkbox" name="sal_content" value="1"/>
+					</td>
+				</tr>
+				<tr>
+					<td class="tableName">Покупатели (cust)</td>
+					<td class="tablePropertyCheckbox">
+						<input type="checkbox" name="cust_structure" value="1"/>
+					</td>
+					<td class="tablePropertyCheckbox">
+						<input type="checkbox" name="cust_content" value="1"/>
+					</td>
+				</tr>
+				<tr>
+					<td class="tableName">Заказы (ord)</td>
+					<td class="tablePropertyCheckbox">
+						<input type="checkbox" name="ord_structure" value="1"/>
+					</td>
+					<td class="tablePropertyCheckbox">
+						<input type="checkbox" name="ord_content" value="1"/>
+					</td>
+				</tr>
+			</table>
+			<input type='submit' value='Получить информацию'>
+		</form>
+	</body>
+</html>
