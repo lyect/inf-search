@@ -1,0 +1,45 @@
+<html>
+    <head>
+        <title>Universities</title>
+    </head>
+    <body>
+        <h4>Create university entry</h4>
+        {% if status == "SUCCESS" %}
+            <p>Successfully added university!</p>
+        {% elif status == "INVALID_FOUNDED_DATE" %}
+            <p>Invalid founded date. Must be in format "YYYY-MM-DD"!</p>
+        {% elif status == "INVALID_ABBREVIATION_NAME" %}
+            <p>Invalid abbreviation name. Length must be from 1 to 255!</p>
+        {% elif status == "INVALID_ABBREVIATION_NAME_AND_FOUNDED_DATE" %}
+            <p>Invalid abbreviation name. Length must be from 1 to 255!</p>
+            <p>Invalid founded date. Must be in format "YYYY-MM-DD"!</p>
+        {% elif status == "INVALID_FULL_NAME" %}
+            <p>Invalid full name. Length must be from 1 to 255!</p>
+        {% elif status == "INVALID_FULL_NAME_AND_FOUNDED_DATE" %}
+            <p>Invalid full name. Length must be from 1 to 255!</p>
+            <p>Invalid founded date. Must be in format "YYYY-MM-DD"!</p>
+        {% elif status == "INVALID_FULL_NAME_AND_ABBREVIATION_NAME" %}
+            <p>Invalid full name. Length must be from 1 to 255!</p>
+            <p>Invalid abbreviation name. Length must be from 1 to 255!</p>
+        {% elif status == "INVALID_FULL_NAME_AND_ABBREVIATION_NAME_AND_FOUNDED_DATE" %}
+            <p>Invalid full name. Length must be from 1 to 255!</p>
+            <p>Invalid abbreviation name. Length must be from 1 to 255!</p>
+            <p>Invalid founded date. Must be in format "YYYY-MM-DD"!</p>
+        {% elif status is not None %}
+            <p>Unknown status. Check logs</p>
+        {% endif %}
+        <form method="POST">
+            {% csrf_token %}
+            <table>
+                {{ universities_create_form }}
+            </table>
+            <input type="submit" value="Add university"/>
+        </form><br>
+        <p>
+            <a href="/universities/menu/">Back to universities menu</a>
+        </p>
+        <p>
+            <a href="/menu/">Back to menu</a>
+        </p>
+    </body>
+</html>
