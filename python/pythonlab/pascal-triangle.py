@@ -74,7 +74,14 @@ class PascalTriangle:
 
 def main() -> None:
 	print("Enter N:")
-	N: int = int(input())
+
+	N: int = -1
+	while (N < 0):
+		N_input = input()
+		try:
+			N = int(N_input)
+		except Exception as e:
+			print("Can not interpret \"{}\" as number. Please, enter valid value:".format(N_input))
 
 	print("Do you want to make pretty output? [yes/no]")
 	pretty_output_answer: str = input()

@@ -113,7 +113,13 @@ def main() -> None:
 	filepath: str = input()
 	
 	print("Enter shift:")
-	shift: int = int(input())
+	shift = ""
+	while (shift == ""):
+		shift_input = input()
+		try:
+			shift = int(shift_input)
+		except Exception as e:
+			print("Can not interpret \"{}\" as number. Please, enter valid value:".format(shift_input))
 
 	print("Do you want to use Russian or English language? [rus/eng]")
 	lang_answer: str = input()

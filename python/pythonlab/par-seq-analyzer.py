@@ -49,15 +49,15 @@ def main() -> None:
 		print("Enter sequence:")
 		seq: str = input()
 		if analyzer.analyze_string(seq):
-			print("Correct sequence!")
+			print("\033[92mCorrect sequence!\033[0m")
 		else:
-			print("Incorrect sequence!")
+			print("\033[91mIncorrect sequence!\033[0m")
 	else:
 		print("Enter filepath:")
 		filepath: str = input()
 		if analyzer.analyze_file(filepath):
-			print("Correct sequence!")
+			print("\033[92mCorrect sequence!\033[0m")
 		else:
-			print("Incorrect sequence!")
+			print("\033[91mIncorrect sequence!\033[0m")
 
 main()
