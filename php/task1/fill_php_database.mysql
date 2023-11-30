@@ -1,7 +1,11 @@
-DROP DATABASE InfSearchPHPDatabase;
-
+DROP DATABASE IF EXISTS InfSearchPHPDatabase;
 CREATE DATABASE InfSearchPHPDatabase;
 USE InfSearchPHPDatabase;
+
+DROP USER IF EXISTS 'lyect'@'localhost';
+CREATE USER IF NOT EXISTS 'lyect'@'localhost' IDENTIFIED WITH mysql_native_password BY '12345678';
+GRANT ALL PRIVILEGES on *.* TO 'lyect'@'localhost' WITH GRANT OPTION;
+FLUSH PRIVILEGES;
 
 CREATE TABLE sal (
     snum  int          NOT NULL AUTO_INCREMENT PRIMARY KEY,
