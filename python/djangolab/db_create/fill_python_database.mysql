@@ -1,0 +1,65 @@
+DROP DATABASE IF EXISTS InfSearchPythonDatabase;
+CREATE DATABASE InfSearchPythonDatabase;
+USE InfSearchPythonDatabase;
+
+DROP USER IF EXISTS 'lyect'@'localhost';
+CREATE USER IF NOT EXISTS 'lyect'@'localhost' IDENTIFIED WITH mysql_native_password BY '12345678';
+GRANT ALL PRIVILEGES on *.* TO 'lyect'@'localhost' WITH GRANT OPTION;
+FLUSH PRIVILEGES;
+
+CREATE TABLE Universities (
+	id                int          NOT NULL AUTO_INCREMENT PRIMARY KEY,
+	full_name         varchar(255) NOT NULL,
+	abbreviation_name varchar(255) NOT NULL,
+	founded_date      date         NOT NULL
+);
+
+CREATE TABLE Students (
+	id             int          NOT NULL AUTO_INCREMENT PRIMARY KEY,
+	full_name      varchar(255) NOT NULL,
+	university_id  int          NOT NULL,
+	admission_year YEAR         NOT NULL,
+
+	FOREIGN KEY (university_id) REFERENCES Universities(id)
+);
+
+INSERT INTO Universities
+	(full_name, abbreviation_name, founded_date)
+VALUES
+	('Новосибирский Государственный Университет',      'НГУ',  STR_TO_DATE('09-01-1958', '%d-%m-%Y')),
+	('Massachusetts Institute of Technology',          'MIT',  STR_TO_DATE('10-04-1861', '%d-%m-%Y')),
+	('Norwegian University of Science and Technology', 'NTNU', STR_TO_DATE('01-01-1996', '%d-%m-%Y'));
+
+INSERT INTO Students
+	(full_name, university_id, admission_year)
+VALUES
+	('Дементьева Анна Павловна',      1, 2008),
+	('Авдеев Матвей Николаевич',      1, 1990),
+	('Логинова Маргарита Данииловна', 1, 1971),
+	('Муратова Дарья Никитична',      1, 2005),
+	('Фомин Антон Янович',            1, 1992),
+	('Афанасьева Алиса Артёмовна',    1, 1970),
+	('Орлова Алина Арсентьевна',      1, 2004),
+	('Белоусов Илья Иванович',        1, 1993),
+	('Орлова Милана Артёмовна',       1, 1982),
+	('Баранова Стефания Марковна',    1, 1971),
+	('Thomas Beaumont Rey',           2, 1977),
+	('Kirsten Lorna Waters',          2, 2013),
+	('Tracie Sharyn Danielson',       2, 1989),
+	('Boyd Luanne Armstrong',         2, 2001),
+	('Fancy Catharine Cummings',      2, 1977),
+	('Violet Regan Dodge',            2, 1992),
+	('Gae Seward Adams',              2, 1970),
+	('Roseanne Careen Adcock',        2, 1984),
+	('Maude Marilou Ash',             2, 1991),
+	('Harriett Maree Butcher',        2, 1998),
+	('Eleonor Malte Lennartsson',     3, 1996),
+	('Peter Kathrine Van Schoorl',    3, 2010),
+	('Milla Rigmor Haak',             3, 2004),
+	('Jolanda Vilgot Wolff',          3, 1991),
+	('Martine Vebjørn Olson',         3, 2011),
+	('Lisa Lucia Alfons',             3, 2021),
+	('Anna Thore Ananias',            3, 2008),
+	('Tygo Rebekka Visser',           3, 2023),
+	('Andreas Niek Holmberg',         3, 1999),
+	('Torbjørn Signe Jakobsen',       3, 2013);

@@ -54,26 +54,26 @@ def universities_create_update(request, form_name, data, mode, id_to_update):
         if     uni_full_name_is_valid and     uni_abbreviation_name_is_valid and not uni_founded_date_is_valid:
             partially_filled_form_initial["full_name"] = uni_full_name
             partially_filled_form_initial["abbreviation_name"] = uni_abbreviation_name
-            data["status"] = "INVALID_FOUNDED_DATE";
+            data["status"] = "INVALID_FOUNDED_DATE"
         if     uni_full_name_is_valid and not uni_abbreviation_name_is_valid and     uni_founded_date_is_valid:
             partially_filled_form_initial["full_name"] = uni_full_name
             partially_filled_form_initial["founded_date"] = uni_founded_date
-            data["status"] = "INVALID_ABBREVIATION_NAME";
+            data["status"] = "INVALID_ABBREVIATION_NAME"
         if     uni_full_name_is_valid and not uni_abbreviation_name_is_valid and not uni_founded_date_is_valid:
             partially_filled_form_initial["full_name"] = uni_full_name
-            data["status"] = "INVALID_ABBREVIATION_NAME_AND_FOUNDED_DATE";
+            data["status"] = "INVALID_ABBREVIATION_NAME_AND_FOUNDED_DATE"
         if not uni_full_name_is_valid and     uni_abbreviation_name_is_valid and     uni_founded_date_is_valid:
             partially_filled_form_initial["abbreviation_name"] = uni_abbreviation_name
             partially_filled_form_initial["founded_date"] = uni_founded_date
-            data["status"] = "INVALID_FULL_NAME";
+            data["status"] = "INVALID_FULL_NAME"
         if not uni_full_name_is_valid and     uni_abbreviation_name_is_valid and not uni_founded_date_is_valid:
             partially_filled_form_initial["abbreviation_name"] = uni_abbreviation_name
-            data["status"] = "INVALID_FULL_NAME_AND_FOUNDED_DATE";
+            data["status"] = "INVALID_FULL_NAME_AND_FOUNDED_DATE"
         if not uni_full_name_is_valid and not uni_abbreviation_name_is_valid and     uni_founded_date_is_valid:
             partially_filled_form_initial["founded_date"] = uni_founded_date
-            data["status"] = "INVALID_FULL_NAME_AND_ABBREVIATION_NAME";
+            data["status"] = "INVALID_FULL_NAME_AND_ABBREVIATION_NAME"
         if not uni_full_name_is_valid and not uni_abbreviation_name_is_valid and not uni_founded_date_is_valid:
-            data["status"] = "INVALID_FULL_NAME_AND_ABBREVIATION_NAME_AND_FOUNDED_DATE";
+            data["status"] = "INVALID_FULL_NAME_AND_ABBREVIATION_NAME_AND_FOUNDED_DATE"
 
         data["universities_update_form"] = forms.UniversitiesCreateForm(
             initial=partially_filled_form_initial)
