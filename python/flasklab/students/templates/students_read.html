@@ -1,0 +1,28 @@
+<html>
+    <head>
+        <title>Students</title>
+    </head>
+    <body>
+        <h4>Read students table</h4>
+        <table border="1" cellpadding="5">
+            <tr>
+                <th>Full Name</th>
+                <th>University</th>
+                <th>Admission Year</th>
+            </tr>
+            {% for item in items %}
+            <tr> 
+                <td>{{ item.full_name }}</td>
+                <td>{{ item.university.abbreviation_name }}</td>
+                <td>{{ item.admission_year }}</td>
+            </tr>
+            {% endfor %}
+        </table><br>
+        <p>
+            <a href="/students/menu/">Back to students menu</a>
+        </p>
+        <p>
+            <a href="/menu/">Back to menu</a>
+        </p>
+    </body>
+</html>

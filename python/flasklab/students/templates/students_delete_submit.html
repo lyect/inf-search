@@ -1,0 +1,25 @@
+<html>
+    <head>
+        <title>Students</title>
+    </head>
+    <body>
+        {% if status == "SUCCESS" %}
+            <p>Successfully deleted students!</p>
+        {% elif status == "ERROR" %}
+            <p>Can not delete!</p>
+        {% elif status == "NOT_SELECTED" %}
+            <p>Student is not selected!</p>
+        {% elif status is defined %}
+            <p>Unknown status. Check logs!</p>
+        {% endif %}
+        <p>
+            <a href="/students/delete/">Back</a>
+        </p>
+        <p>
+            <a href="/students/menu/">Back to students menu</a>
+        </p>
+        <p>
+            <a href="/menu/">Back to menu</a>
+        </p>
+    </body>
+</html>

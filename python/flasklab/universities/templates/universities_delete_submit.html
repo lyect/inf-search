@@ -1,0 +1,25 @@
+<html>
+    <head>
+        <title>Universities</title>
+    </head>
+    <body>
+        {% if status == "SUCCESS" %}
+            <p>Successfully deleted universities!</p>
+        {% elif status == "ERROR" %}
+            <p>Can not delete: Foreign Key!</p>
+        {% elif status == "NOT_SELECTED" %}
+            <p>University is not selected!</p>
+        {% elif status is defined %}
+            <p>Unknown status. Check logs!</p>
+        {% endif %}
+        <p>
+            <a href="/universities/delete/">Back</a>
+        </p>
+        <p>
+            <a href="/universities/menu/">Back to universities menu</a>
+        </p>
+        <p>
+            <a href="/menu/">Back to menu</a>
+        </p>
+    </body>
+</html>

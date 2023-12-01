@@ -1,0 +1,28 @@
+<html>
+    <head>
+        <title>Students</title>
+    </head>
+    <body>
+        {% if status == "SUCCESS" %}
+            <p>Successfully added student!</p>
+        {% elif status == "INVALID_FULL_NAME" %}
+            <p>Invalid full name. Length must be from 1 to 255!</p>
+        {% elif status == "INVALID_ADMISSION_YEAR" %}
+            <p>Invalid admission year. Must be from 0 to current year!</p>
+        {% elif status == "INVALID_FULL_NAME_AND_ADMISSION_YEAR" %}
+            <p>Invalid full name. Length must be from 1 to 255!</p>
+            <p>Invalid admission year. Must be from 0 to current year!</p>
+        {% elif status is defined %}
+            <p>Unknown status. Check logs</p>
+        {% endif %}
+        <p>
+            <a href="/students/update/">Back</a>
+        </p>
+        <p>
+            <a href="/students/menu/">Back to students menu</a>
+        </p>
+        <p>
+            <a href="/menu/">Back to menu</a>
+        </p>
+    </body>
+</html>
