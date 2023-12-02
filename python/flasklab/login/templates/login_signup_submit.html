@@ -1,0 +1,24 @@
+<html>
+	<head>
+		<title>Sign-Up</title>
+	</head>
+	<body>
+		{% if status == "SUCCESS" %}
+			<p>Successfully signed up!</p>
+			<p>
+				<a href="/signin/">Sign-In</a>
+			</p>
+			<p>
+				<a href="/menu/">Back to menu</a>
+			</p>
+		{% elif status == "USER_EXISTS" %}
+			<p>User with this e-mail already exists!</p>
+			<p>
+				<a href="/signup/">Back</a>
+			</p>
+			<p>
+				<a href="/menu/">Back to menu</a>
+			</p>
+		{% endif %}
+	</body>
+</html>

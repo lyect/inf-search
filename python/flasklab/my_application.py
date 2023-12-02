@@ -1,8 +1,12 @@
 from flask import Flask
+from flask_login import login_required
 
+from login.login import login_manager
 from database.database import db
+
 from universities.universities import universities_blueprint
 from students.students import students_blueprint
+from login.login import login_blueprint
 
 from database.model import UniversityModel, StudentModel
 
@@ -20,15 +24,20 @@ class MyApplication(Flask):
         with self.app_context():
             db.create_all()
 
+    def setup_login_manager(self, login_manager):
+        login_manager.init_app(self)
+
 my_application = MyApplication(__name__, db.getURI())
+my_application.setup_login_manager(login_manager)
 my_application.setup_database(db)
 
 my_application.register_blueprint(universities_blueprint, url_prefix="/universities")
 my_application.register_blueprint(students_blueprint, url_prefix="/students")
+my_application.register_blueprint(login_blueprint)
 
 @my_application.route("/")
 @my_application.route('/menu/')
-def index(): 
+def menu(): 
     menu_response = \
 """
 <html>
@@ -40,12 +49,17 @@ def index():
         <a href="/populate/">Populate</a><br>
         <a href="/students/menu/">Students</a><br>
         <a href="/universities/menu/">Universities</a>
+        <br><br>
+        <a href="/signup/">Sign Up</a>
+        <a href="/signin/">Sign In</a>
+        <a href="/logout/">Log Out</a>
     </body>
 </html>
 """
     return menu_response
 
 @my_application.route("/populate/")
+@login_required
 def populate():
     uni1 = UniversityModel(
         full_name='Новосибирский Государственный Университет',

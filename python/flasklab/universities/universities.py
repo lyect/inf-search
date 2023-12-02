@@ -1,4 +1,5 @@
 from flask import Blueprint, render_template, request
+from flask_login import login_required
 
 from database.database import db
 from database.model import UniversityModel
@@ -90,6 +91,7 @@ def universities_create_update(request, template_name, mode, id_to_update):
             return render_template(template_name, status="INVALID_FULL_NAME_AND_ABBREVIATION_NAME_AND_FOUNDED_DATE")
 
 @universities_blueprint.route("/create/", methods=["GET", "POST"])
+@login_required
 def create():
     if request.method == "POST":
         return universities_create_update(request, "universities_create_submit.html", "CREATE", None)
@@ -100,6 +102,7 @@ def read():
     return render_template("universities_read.html", items=UniversityModel.query.all())
 
 @universities_blueprint.route("/update/", methods=["GET", "POST"])
+@login_required
 def update():
     if request.method == "POST":
         if "id_to_update" not in request.form:
@@ -108,6 +111,7 @@ def update():
     return render_template("universities_update.html", form=UniversityForm(), items=UniversityModel.query.all())
 
 @universities_blueprint.route("/delete/", methods=["GET", "POST"])
+@login_required
 def delete():
     if request.method == "POST":
         if "ids_to_delete" not in request.form:
