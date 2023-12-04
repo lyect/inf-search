@@ -41,12 +41,24 @@
 				$birthday = getPOSTorEmpty("birthday");
 				$mail = getPOSTorEmpty("mail");
 
-				$insertContentQuery = "
-					INSERT INTO $tableName
-						(name, city, address, birthday, mail)
-					VALUES
-						('$name', '$city', '$address', STR_TO_DATE('$birthday', '%d-%m-%Y'), '$mail');
-				";
+				$insertContentQuery = "";
+
+				if ($birthday == "") {
+					$insertContentQuery = "
+						INSERT INTO $tableName
+							(name, city, address, mail)
+						VALUES
+							('$name', '$city', '$address', '$mail');
+					";
+				}
+				else {
+					$insertContentQuery = "
+						INSERT INTO $tableName
+							(name, city, address, birthday, mail)
+						VALUES
+							('$name', '$city', '$address', STR_TO_DATE('$birthday', '%d-%m-%Y'), '$mail');
+					";
+				}
 
 				$queryResult = mysqli_query($connection, $insertContentQuery);
 				if (!$queryResult) {

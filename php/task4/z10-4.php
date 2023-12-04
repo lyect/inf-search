@@ -7,7 +7,7 @@
 				die(mysqli_connect_error());
 			}
 
-			$database = "InfSearchPHPDatabas";
+			$database = "InfSearchPHPDatabase";
 
 			if (!mysqli_select_db($connection, $database)) {
 				die("Невозможно открыть базу данных \"$database\": ".mysqli_error($connection));

@@ -72,7 +72,7 @@ WHERE
 SELECT *
 FROM sal
 WHERE
-	cname RLIKE '.*[e|E].*';
+	sname RLIKE '.*[e|E].*';
 
 \! echo '#================================================================#';
 \! echo '#                            TASK 10                             #';

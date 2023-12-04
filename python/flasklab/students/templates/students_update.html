@@ -18,14 +18,14 @@
                     <th>Full Name</th>
                     <th>University</th>
                     <th>Admission Year</th>
-                    <th>Delete</th>
+                    <th>Update</th>
                 </tr>
                 {% for item in items %}
                 <tr> 
                     <td>{{ item.full_name }}</td>
                     <td>{{ item.university.abbreviation_name }}</td>
                     <td>{{ item.admission_year }}</td>
-                    <td><input type="checkbox" name="ids_to_delete" value="{{ item.id }}"></td>
+                    <td><input type="radio" name="id_to_update" value="{{ item.id }}"></td>
                 </tr>
                 {% endfor %}
             </table>
